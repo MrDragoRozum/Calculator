@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="Example" translatable="false">3 × 5 = ?</string>
+    <string name="answer">Answer</string>
+    <string name="answer_is_wrong">Your answer is wrong! \n Try once more</string>
+    <string name="Answer_is_correct">Your answer is correct!</string>
+    <string name="users_answer">Your answer:</string>
+</resources>

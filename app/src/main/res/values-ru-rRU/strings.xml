@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyCalculator</string>
+    <string name="answer" translatable="false">Дать ответ</string>
+    <string name="answer_is_wrong" translatable="false">Ваш ответ неправильный</string>
+    <string name="Answer_is_correct" translatable="false">Ваш ответ правильный</string>
+    <string name="users_answer" translatable="false">Введите ответ</string>
+</resources>
