@@ -5,4 +5,8 @@
     <string name="answer_is_wrong" translatable="false">Ваш ответ неправильный</string>
     <string name="Answer_is_correct" translatable="false">Ваш ответ правильный</string>
     <string name="users_answer" translatable="false">Введите ответ</string>
+    <string name="create_example">Создайте новый пример</string>
+    <string name="choose_math_sign">Выберите математический знак</string>
+    <string name="waringForUser">Вам нужно выбрать знак, прежде использовать эту кнопку</string>
+    <string name="waringForUserNull">Вам нужно написать свой ответ, прежде использовать эту кнопку</string>
 </resources>
