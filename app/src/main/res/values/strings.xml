@@ -7,6 +7,6 @@
     <string name="users_answer">Your answer:</string>
     <string name="create_example">create a new example</string>
     <string name="choose_math_sign">Choose a math sign</string>
-    <string name="waringForUser">You need to choose a math sign before use this button</string>
-    <string name="waringForUserNull">You need to write your answer before use this button</string>
+    <string name="warningForUser">You need to choose a math sign before use this button</string>
+    <string name="warningForUserNull">You need to write your answer before use this button</string>
 </resources>

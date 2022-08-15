@@ -3,7 +3,6 @@ package com.example.mycalculator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -57,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         buttonAnswer.setOnClickListener(l -> {
             String answerString = editTextAnswer.getText().toString();
             if(answerString.equals("")) {
-                String text = getString(R.string.waringForUserNull);
-                waring(this, text, Toast.LENGTH_LONG);
+                String text = getString(R.string.warningForUserNull);
+                waring(text, Toast.LENGTH_LONG);
                 return;
             }
             Integer answerUser = Integer.valueOf(answerString);
@@ -74,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         buttonCreate.setOnClickListener(l -> {
             if(repeat == -1) {
-                String text = getString(R.string.waringForUser);
-                waring(this, text, Toast.LENGTH_LONG);
+                String text = getString(R.string.warningForUser);
+                waring(text, Toast.LENGTH_LONG);
                 return;
             }
             textViewExample.setText(example(99, 99, repeat));
@@ -120,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    @NonNull
     private String example(int first, int second, int sign) {
         int firstNumber = random.nextInt(first)+1;
         int secondNumber = random.nextInt(second)+1;
@@ -134,12 +132,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if(sign == MENU_MINUS) {
-            if(firstNumber < secondNumber) {
+        if(sign == MENU_MINUS && firstNumber < secondNumber) {
                 int order = firstNumber;
                 firstNumber = secondNumber;
                 secondNumber = order;
-            }
             decided = firstNumber - secondNumber;
         } else if(sign == MENU_DIVISION) {
             boolean tmp;
@@ -157,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         return firstNumber + signString + secondNumber + " = ?";
     }
 
-    private void waring(Context context, String text, int time) {
+    private void waring(String text, int time) {
         Toast toast = Toast.makeText(this, text, time);
         toast.show();
     }

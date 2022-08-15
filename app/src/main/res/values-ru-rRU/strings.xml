@@ -7,6 +7,6 @@
     <string name="users_answer" translatable="false">Введите ответ</string>
     <string name="create_example">Создайте новый пример</string>
     <string name="choose_math_sign">Выберите математический знак</string>
-    <string name="waringForUser">Вам нужно выбрать знак, прежде использовать эту кнопку</string>
-    <string name="waringForUserNull">Вам нужно написать свой ответ, прежде использовать эту кнопку</string>
+    <string name="warningForUser">Вам нужно выбрать знак, прежде использовать эту кнопку</string>
+    <string name="warningForUserNull">Вам нужно написать свой ответ, прежде использовать эту кнопку</string>
 </resources>
