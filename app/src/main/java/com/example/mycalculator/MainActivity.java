@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         return firstNumber + signString + secondNumber + " = ?";
     }
 
-    private void waring(String text, int time) {
+    private void warning(String text, int time) {
         Toast toast = Toast.makeText(this, text, time);
         toast.show();
     }
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             textViewExample.setText(example(99, 99, repeat));
         } else {
             String text = getString(R.string.warningForUser);
-            waring(text, Toast.LENGTH_LONG);
+            warning(text, Toast.LENGTH_LONG);
         }
 
     }
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
             return Integer.valueOf(number);
         } else {
             String text = getString(R.string.warningForUserNull);
-            waring(text, Toast.LENGTH_LONG);
+            warning(text, Toast.LENGTH_LONG);
             return -1;
         }
     }
