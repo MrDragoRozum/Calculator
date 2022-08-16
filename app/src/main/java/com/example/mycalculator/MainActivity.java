@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int decided = 0;
     private int repeat = -1;
+    int firstNumber;
+    int secondNumber;
 
     private ArrayList<String> mathSigns;
     private Random random;
@@ -55,30 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
         buttonAnswer.setOnClickListener(l -> {
             String answerString = editTextAnswer.getText().toString();
-            if(answerString.equals("")) {
-                String text = getString(R.string.warningForUserNull);
-                waring(text, Toast.LENGTH_LONG);
-                return;
-            }
-            Integer answerUser = Integer.valueOf(answerString);
-
-            if(answerUser.equals(decided)) {
-                textViewCorrect.setVisibility(View.VISIBLE);
-                textViewWrong.setVisibility(View.GONE);
-            } else {
-                textViewCorrect.setVisibility(View.GONE);
-                textViewWrong.setVisibility(View.VISIBLE);
+            Integer answerUser = checker(answerString);
+            if (answerUser != -1 && repeat != -1) {
+                checker(answerUser, textViewWrong, textViewCorrect);
             }
         });
 
-        buttonCreate.setOnClickListener(l -> {
-            if(repeat == -1) {
-                String text = getString(R.string.warningForUser);
-                waring(text, Toast.LENGTH_LONG);
-                return;
-            }
-            textViewExample.setText(example(99, 99, repeat));
-        });
+        buttonCreate.setOnClickListener(l -> checker(repeat));
     }
 
     @Override
@@ -99,62 +84,112 @@ public class MainActivity extends AppCompatActivity {
             case MENU_MULTIPLICATION:
                 textViewExample.setText(example(99, 99, MENU_MULTIPLICATION));
                 repeat = 3;
-            break;
+                break;
 
             case MENU_PLUS:
                 textViewExample.setText(example(99, 99, MENU_PLUS));
                 repeat = 0;
-            break;
+                break;
 
             case MENU_DIVISION:
                 textViewExample.setText(example(99, 99, MENU_DIVISION));
                 repeat = 2;
-            break;
+                break;
 
             case MENU_MINUS:
                 textViewExample.setText(example(99, 99, MENU_MINUS));
                 repeat = 1;
-            break;
+                break;
         }
         return super.onContextItemSelected(item);
     }
 
     private String example(int first, int second, int sign) {
-        int firstNumber = random.nextInt(first)+1;
-        int secondNumber = random.nextInt(second)+1;
+        firstNumber = random.nextInt(first) + 1;
+        secondNumber = random.nextInt(second) + 1;
         String signString = mathSigns.get(sign);
 
-        {
-            if (sign == MENU_MULTIPLICATION) {
-                decided = firstNumber * secondNumber;
-            } else if(sign == MENU_PLUS) {
-                decided = firstNumber + secondNumber;
-            }
-        }
+        multiplication(sign, firstNumber, secondNumber);
+        plus(sign, firstNumber, secondNumber);
+        minus(sign, firstNumber, secondNumber);
+        division(sign, firstNumber, secondNumber, first, second);
 
-        if(sign == MENU_MINUS && firstNumber < secondNumber) {
-                int order = firstNumber;
-                firstNumber = secondNumber;
-                secondNumber = order;
-            decided = firstNumber - secondNumber;
-        } else if(sign == MENU_DIVISION) {
-            boolean tmp;
-            do {
-                if (!(firstNumber < secondNumber || firstNumber % secondNumber != 0)) {
-                    decided = firstNumber/secondNumber;
-                    tmp = false;
-                } else {
-                    firstNumber = random.nextInt(first)+1;
-                    secondNumber = random.nextInt(second)+1;
-                    tmp = true;
-                }
-            } while(tmp);
-        }
         return firstNumber + signString + secondNumber + " = ?";
     }
 
     private void waring(String text, int time) {
         Toast toast = Toast.makeText(this, text, time);
         toast.show();
+    }
+
+    private void multiplication(int sign, int firstNumber, int secondNumber) {
+        if (sign == MENU_MULTIPLICATION) {
+            decided = firstNumber * secondNumber;
+        }
+    }
+
+    private void plus(int sign, int firstNumber, int secondNumber) {
+        if (sign == MENU_PLUS) {
+            decided = firstNumber + secondNumber;
+        }
+    }
+
+    private void minus(int sign, int firstNumber, int secondNumber) {
+        if (sign == MENU_MINUS) {
+            if (firstNumber < secondNumber) {
+                int order = this.firstNumber;
+                this.firstNumber = this.secondNumber;
+                this.secondNumber = order;
+            }
+            decided = this.firstNumber - this.secondNumber;
+        }
+    }
+
+    private void division(int sign, int firstNumber, int secondNumber, int first, int second) {
+        if (sign == MENU_DIVISION) {
+            boolean tmp;
+            do {
+                if (!(firstNumber < secondNumber || firstNumber % secondNumber != 0)) {
+                    decided = this.firstNumber / this.secondNumber;
+                    tmp = false;
+                } else {
+                    firstNumber = random.nextInt(first) + 1;
+                    secondNumber = random.nextInt(second) + 1;
+                    this.firstNumber = firstNumber;
+                    this.secondNumber = secondNumber;
+                    tmp = true;
+                }
+            } while (tmp);
+        }
+    }
+
+    private void checker(int repeat) {
+        if (!(repeat == -1)) {
+            textViewExample.setText(example(99, 99, repeat));
+        } else {
+            String text = getString(R.string.warningForUser);
+            waring(text, Toast.LENGTH_LONG);
+        }
+
+    }
+
+    private Integer checker(String number) {
+        if (!number.equals("")) {
+            return Integer.valueOf(number);
+        } else {
+            String text = getString(R.string.warningForUserNull);
+            waring(text, Toast.LENGTH_LONG);
+            return -1;
+        }
+    }
+
+    private void checker(Integer answerUser, TextView wrong, TextView correct) {
+        if (answerUser.equals(decided)) {
+            correct.setVisibility(View.VISIBLE);
+            wrong.setVisibility(View.GONE);
+        } else {
+            correct.setVisibility(View.GONE);
+            wrong.setVisibility(View.VISIBLE);
+        }
     }
 }
