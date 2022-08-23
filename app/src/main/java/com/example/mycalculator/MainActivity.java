@@ -32,23 +32,18 @@ public class MainActivity extends AppCompatActivity {
     private Random random;
 
     private TextView textViewExample;
+    private TextView textViewCorrect;
+    private TextView textViewWrong;
+    private EditText editTextAnswer;
+    private Button buttonAnswer;
+    private Button buttonCreate;
+    private Button buttonChooseMathSings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TextView textViewCorrect = findViewById(R.id.textViewCorrect);
-        TextView textViewWrong = findViewById(R.id.textViewWrong);
-        textViewExample = findViewById(R.id.textViewExample);
-        EditText editTextAnswer = findViewById(R.id.editTextAnswer);
-        Button buttonAnswer = findViewById(R.id.buttonAnswer);
-        Button buttonCreate = findViewById(R.id.buttonCreate);
-        Button buttonChooseMathSings = findViewById(R.id.buttonChooseMathSings);
-
-        random = new Random();
-        mathSigns = new ArrayList<>(4);
-        Collections.addAll(mathSigns, "+", "-", ":", "×");
+        initView();
 
         buttonChooseMathSings.setOnClickListener(l -> {
             registerForContextMenu(buttonChooseMathSings);
@@ -117,11 +112,6 @@ public class MainActivity extends AppCompatActivity {
         return firstNumber + signString + secondNumber + " = ?";
     }
 
-    private void warning(String text, int time) {
-        Toast toast = Toast.makeText(this, text, time);
-        toast.show();
-    }
-
     private void multiplication(int sign, int firstNumber, int secondNumber) {
         if (sign == MENU_MULTIPLICATION) {
             decided = firstNumber * secondNumber;
@@ -167,8 +157,9 @@ public class MainActivity extends AppCompatActivity {
         if (!(repeat == -1)) {
             textViewExample.setText(example(99, 99, repeat));
         } else {
-            String text = getString(R.string.warningForUser);
-            warning(text, Toast.LENGTH_LONG);
+            Toast.makeText(this,
+                    R.string.warningForUser,
+                    Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -177,8 +168,9 @@ public class MainActivity extends AppCompatActivity {
         if (!number.equals("")) {
             return Integer.valueOf(number);
         } else {
-            String text = getString(R.string.warningForUserNull);
-            warning(text, Toast.LENGTH_LONG);
+            Toast.makeText(this,
+                    R.string.warningForUser,
+                    Toast.LENGTH_SHORT).show();
             return -1;
         }
     }
@@ -191,5 +183,22 @@ public class MainActivity extends AppCompatActivity {
             correct.setVisibility(View.GONE);
             wrong.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void initView() {
+        textViewCorrect = findViewById(R.id.textViewCorrect);
+        textViewExample = findViewById(R.id.textViewExample);
+        textViewWrong = findViewById(R.id.textViewWrong);
+
+        editTextAnswer = findViewById(R.id.editTextAnswer);
+        editTextAnswer = findViewById(R.id.editTextAnswer);
+
+        buttonAnswer = findViewById(R.id.buttonAnswer);
+        buttonCreate = findViewById(R.id.buttonCreate);
+        buttonChooseMathSings = findViewById(R.id.buttonChooseMathSings);
+
+        random = new Random();
+        mathSigns = new ArrayList<>(4);
+        Collections.addAll(mathSigns, "+", "-", ":", "×");
     }
 }
